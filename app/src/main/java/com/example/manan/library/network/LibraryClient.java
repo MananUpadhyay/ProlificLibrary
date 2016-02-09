@@ -28,9 +28,9 @@ public interface LibraryClient {
     Call<Book> updateBook(@Path("id") String id, @Body Book book);
 
     @DELETE("books/{id}")
-    Call<Book> deleteBook(@Path("id") String id);
+    Call<Void> deleteBook(@Path("id") String id);
 
     @DELETE("clean")
-    void deleteAll();
+    Call<Void> deleteAll();
 
 }

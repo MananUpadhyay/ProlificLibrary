@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -10,27 +11,59 @@
     tools:context="com.example.manan.library.CheckoutActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
+        android:id="@+id/chTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bookCheckout"/>
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/chAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/chpub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/churl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/chCat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/lastCheckout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="checkoutBook"
+        android:text="@string/bookCheckout" />
 
 </LinearLayout>

@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = " http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/";
+    public static final String API_BASE_URL = "http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

@@ -16,7 +16,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".CheckoutActivity"
-            android:label="@string/bookCheckout" />
+            android:label="@string/bookCheckout"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
