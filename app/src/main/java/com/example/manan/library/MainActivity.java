@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements AddBookDialogFrag
             }
         });
 
-
     }
 
     public void configureRecyclerView() {
@@ -185,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements AddBookDialogFrag
     }
 
     public void deleteAllBooks() {
+        String deleteUrl = "http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/clean";
+
         Call<Void> deleteCall = libraryClient.deleteAll();
         deleteCall.enqueue(new Callback<Void>() {
             @Override
@@ -203,6 +204,20 @@ public class MainActivity extends AppCompatActivity implements AddBookDialogFrag
                 Log.e("MainActivity", t.getMessage());
             }
         });
-
+//        RemoteTask rt = new RemoteTask(deleteUrl, "DELETE", new RemoteTask.RemoteCallback() {
+//            @Override
+//            public void onSuccess(String s) {
+//                retrieveBooks();
+//                Snackbar.make(findViewById(R.id.rootLayout), "Deleted All Books", Snackbar.LENGTH_LONG).show();
+//                bookListAdapter.setList(new ArrayList<Book>());
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                Log.e("MainActivity", t.getMessage());
+//                Snackbar.make(findViewById(R.id.rootLayout), "Error Deleting Books 1", Snackbar.LENGTH_LONG).show();
+//            }
+//        });
+//        rt.execute();
     }
 }

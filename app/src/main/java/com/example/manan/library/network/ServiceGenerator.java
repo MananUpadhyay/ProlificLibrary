@@ -15,7 +15,7 @@ public class ServiceGenerator {
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private static Gson gson = new GsonBuilder()
-            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss zzz")
+            .setDateFormat("yyyy-MM-dd HH:mm:ss zzz")
             .create();
 
 

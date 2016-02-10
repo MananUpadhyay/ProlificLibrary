@@ -17,10 +17,6 @@ import android.widget.Toast;
 import com.example.manan.library.network.LibraryClient;
 import com.example.manan.library.network.ServiceGenerator;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -106,28 +102,21 @@ public class CheckoutActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Cannot Checkout now", Toast.LENGTH_SHORT).show();
             return;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
-        Date today = Calendar.getInstance().getTime();
-        String curDate = sdf.format(today);
-        Book checkBook = new BookBuilder()
-                .withAuthor(bookResult.getAuthor())
-                .withId(bookResult.getId())
-                .withCategories(bookResult.getCategories())
-                .withPublisher(bookResult.getPublisher())
-                .withTitle(bookResult.getTitle())
-                .withUrl(bookResult.getUrl())
-                .withLastCheckedOut(curDate)
-                .withLastCheckedOutBy("Iron Man").build();
+        String checkoutUrl = "http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/books/" + bookID;
+        Log.d("Hello", bookID);
 
-        Call<Book> chBookCall = libraryClient.updateBook(bookID, checkBook);
+        Call<Book> chBookCall = libraryClient.updateBook(bookID, "Iron Man");
         chBookCall.enqueue(new Callback<Book>() {
             @Override
             public void onResponse(Response<Book> response) {
                 if (response.isSuccess()) {
                     Book rs = response.body();
+                    Log.d("checkoutResult ~~>>", response.body().toString());
+                    Log.d("checkoutResult ~~>>", response.headers().toString());
                     bookResult = rs;
-                    bind(rs);
                     Toast.makeText(getApplicationContext(), "Edited Book", Toast.LENGTH_SHORT).show();
+//                    getBook();
+                    bind(rs);
                 } else {
                     Toast.makeText(getApplicationContext(), "Error Editing Book 1", Toast.LENGTH_SHORT).show();
                 }
@@ -139,7 +128,23 @@ public class CheckoutActivity extends AppCompatActivity {
                 Log.e("CheckoutActivity", t.getMessage());
             }
         });
-
+//        RemoteTask rt = new RemoteTask(checkoutUrl, "PUT", new RemoteTask.RemoteCallback() {
+//            @Override
+//            public void onSuccess(String s) {
+//                Gson gson = new Gson();
+//                Book bb = gson.fromJson(s, Book.class);
+//                bookResult = bb;
+//                Toast.makeText(getApplicationContext(), "Edited Book", Toast.LENGTH_SHORT).show();
+////                bind(bb);
+//                getBook();
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                Log.e("CheckoutActivity", t.getMessage());
+//            }
+//        });
+//        rt.execute();
     }
 
     public void shareBook() {
@@ -150,15 +155,15 @@ public class CheckoutActivity extends AppCompatActivity {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
+        shareIntent.putExtra("Book", bookResult.toString());
         if (shareActionProvider != null) {
-            if (bookResult != null) {
-                shareIntent.putExtra("Book", bookResult.toString());
-            }
             shareActionProvider.setShareIntent(shareIntent);
         }
     }
 
     public void deleteCurrentBook() {
+        String deleteBookUrl = "http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/books/" + bookID;
+        Log.d("Hello", bookID);
         Call<Void> delCurBookCall = libraryClient.deleteBook(bookID);
         delCurBookCall.enqueue(new Callback<Void>() {
             @Override
@@ -177,7 +182,21 @@ public class CheckoutActivity extends AppCompatActivity {
                 Log.e("CheckoutActivity", t.getMessage());
             }
         });
-
+//        RemoteTask rt = new RemoteTask(deleteBookUrl, "DELETE", new RemoteTask.RemoteCallback() {
+//            @Override
+//            public void onSuccess(String s) {
+//                if (s == null) {
+//                    Toast.makeText(getApplicationContext(), "Deleted book", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                Log.e("CheckoutActivity", t.getMessage());
+//            }
+//        });
+//        rt.execute();
     }
 
     public void bind(Book b) {
@@ -194,7 +213,6 @@ public class CheckoutActivity extends AppCompatActivity {
         TextView lastChOut = (TextView) findViewById(R.id.lastCheckout);
         String txt = b.getLastCheckedOutBy() + " @ " + b.getLastCheckedOut();
         lastChOut.setText(txt);
-        return;
     }
 
 }
