@@ -29,13 +29,13 @@ public interface LibraryClient {
 
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @FormUrlEncoded
-    @PUT("books/{id}")
+    @PUT("books/{id}/")
     Call<Book> updateBook(@Path("id") String id, @Field("lastCheckedOutBy") String lastCheckedOutBy);
 
-    @DELETE("books/{id}")
+    @DELETE("books/{id}/")
     Call<Void> deleteBook(@Path("id") String id);
 
-    @DELETE("clean")
+    @DELETE("clean/")
     Call<Void> deleteAll();
 
 }

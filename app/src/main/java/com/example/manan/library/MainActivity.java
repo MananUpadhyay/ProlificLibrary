@@ -47,13 +47,6 @@ public class MainActivity extends AppCompatActivity implements AddBookDialogFrag
         configureRecyclerView();
         retrieveBooks();
 
-//        final Button button = (Button) findViewById(R.id.);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                // Perform action on click
-//            }
-//        });
-
         // Modal for adding new books.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

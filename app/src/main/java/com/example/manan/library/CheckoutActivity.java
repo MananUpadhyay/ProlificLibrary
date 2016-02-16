@@ -49,6 +49,14 @@ public class CheckoutActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.checkout_menu, menu);
         MenuItem item = menu.findItem(R.id.share);
         shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+        if (shareActionProvider != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+//            shareIntent.putExtra("Book", bookResult.toString());
+            Log.d("ShareBook", "Hello-------2");
+            shareActionProvider.setShareIntent(shareIntent);
+        }
         return true;
     }
 
@@ -102,7 +110,7 @@ public class CheckoutActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Cannot Checkout now", Toast.LENGTH_SHORT).show();
             return;
         }
-        String checkoutUrl = "http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/books/" + bookID;
+//        String checkoutUrl = "http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/books/" + bookID;
         Log.d("Hello", bookID);
 
         Call<Book> chBookCall = libraryClient.updateBook(bookID, "Iron Man");
@@ -148,21 +156,24 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     public void shareBook() {
+        Log.d("ShareBook", "Hello-------");
         if (bookResult == null) {
             Toast.makeText(getApplicationContext(), "Cant Share now", Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra("Book", bookResult.toString());
-        if (shareActionProvider != null) {
-            shareActionProvider.setShareIntent(shareIntent);
-        }
+//        Intent shareIntent = new Intent();
+//        shareIntent.setAction(Intent.ACTION_SEND);
+//        shareIntent.setType("text/plain");
+//        shareIntent.putExtra("Book", bookResult.toString());
+//        if (shareActionProvider != null) {
+//            Log.d("ShareBook","Hello-------2");
+//            shareActionProvider.setShareIntent(shareIntent);
+//        }
+//        startActivity();
     }
 
     public void deleteCurrentBook() {
-        String deleteBookUrl = "http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/books/" + bookID;
+//        String deleteBookUrl = "http://prolific-interview.herokuapp.com/56aff03f3ecbf90009be7bec/books/" + bookID;
         Log.d("Hello", bookID);
         Call<Void> delCurBookCall = libraryClient.deleteBook(bookID);
         delCurBookCall.enqueue(new Callback<Void>() {
@@ -170,6 +181,7 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onResponse(Response<Void> response) {
                 if (response.isSuccess()) {
                     Toast.makeText(getApplicationContext(), "Deleted book", Toast.LENGTH_SHORT).show();
+                    Log.d("CheckoutActivity", response.code() + " ");
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "Error deleting book", Toast.LENGTH_SHORT).show();
